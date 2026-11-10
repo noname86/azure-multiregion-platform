@@ -1,0 +1,13 @@
+# Terraform working directories and provider binaries
+.terraform/
+
+# State and plan files (may contain sensitive data)
+*.tfstate
+*.tfstate.*
+*.tfplan
+
+# Variable files (may contain secrets)
+*.tfvars
+
+# Logs
+crash.log
