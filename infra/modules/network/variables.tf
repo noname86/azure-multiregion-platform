@@ -1,8 +1,8 @@
 
 
 variable "name" {
-    description = "Short region code used in resource names, e.g. uks"
-    type        = string
+  description = "Short region code used in resource names, e.g. uks"
+  type        = string
 }
 
 variable "location" {

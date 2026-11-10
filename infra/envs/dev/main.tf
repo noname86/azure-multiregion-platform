@@ -15,6 +15,9 @@ locals {
     environment = "dev"
     managed_by  = "terraform"
   }
+
+  # Entra ID object IDs with cluster admin rights (not secrets)
+  aks_admin_object_ids = ["cc131fa3-3419-4404-8c9c-1759728379ed"]
 }
 
 resource "azurerm_resource_group" "region" {
@@ -33,5 +36,18 @@ module "network" {
   location            = each.value.location
   resource_group_name = azurerm_resource_group.region[each.key].name
   address_space       = each.value.address_space
+  tags                = local.tags
+}
+
+module "aks" {
+  source   = "../../modules/aks"
+  for_each = var.aks_enabled ? local.regions : {}
+
+  name                = each.key
+  location            = each.value.location
+  resource_group_name = azurerm_resource_group.region[each.key].name
+  vnet_id             = module.network[each.key].vnet_id
+  subnet_id           = module.network[each.key].subnet_ids.aks
+  admin_object_ids    = local.aks_admin_object_ids
   tags                = local.tags
 }
