@@ -17,7 +17,7 @@ locals {
   }
 
   # Entra ID object IDs with cluster admin rights (not secrets)
-  aks_admin_object_ids = ["cc131fa3-3419-4404-8c9c-1759728379ed"]
+  aks_admin_object_ids = ["82197347-13a7-48e4-876b-8374ab0782af"]
 }
 
 resource "azurerm_resource_group" "region" {

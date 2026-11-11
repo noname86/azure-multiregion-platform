@@ -24,7 +24,7 @@ jobs:
       - name: Check access to Terraform state storage
         run: |
           az storage blob list \
-            --account-name sttfstate73004 \
+            --account-name sttfstate81348 \
             --container-name tfstate \
             --auth-mode login \
             -o table
