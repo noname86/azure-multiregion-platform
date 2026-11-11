@@ -3,10 +3,13 @@ locals {
     uks = {
       location      = "uksouth"
       address_space = "10.10.0.0/16"
+      node_vm_size  = "Standard_D2ns_v6"
+
     }
-    neu = {
-      location      = "northeurope"
+    sdc = {
+      location      = "swedencentral"
       address_space = "10.20.0.0/16"
+      node_vm_size  = "Standard_D2s_v6"
     }
   }
 
@@ -47,6 +50,7 @@ module "aks" {
   location            = each.value.location
   resource_group_name = azurerm_resource_group.region[each.key].name
   vnet_id             = module.network[each.key].vnet_id
+  node_vm_size        = each.value.node_vm_size
   subnet_id           = module.network[each.key].subnet_ids.aks
   admin_object_ids    = local.aks_admin_object_ids
   tags                = local.tags
