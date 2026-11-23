@@ -49,7 +49,9 @@ resource "azurerm_kubernetes_cluster" "this" {
   default_node_pool {
     name                        = "system"
     vm_size                     = var.node_vm_size
-    node_count                  = var.node_count
+    auto_scaling_enabled             = true
+    min_count                   = var.node_min_count
+    max_count                   = var.node_max_count
     vnet_subnet_id              = var.subnet_id
     os_sku                      = "AzureLinux"
     temporary_name_for_rotation = "systemtmp"

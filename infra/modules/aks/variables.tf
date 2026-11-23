@@ -34,10 +34,15 @@ variable "node_vm_size" {
   type        = string
 }
 
-variable "node_count" {
+variable "node_min_count" {
   description = "Number of nodes in the system node pool"
   type        = number
   default     = 1
+}
+variable "node_max_count" {
+  description = "Maximum number of nodes in the system node pool"
+  type        = number
+  default     = 3
 }
 
 variable "admin_object_ids" {
