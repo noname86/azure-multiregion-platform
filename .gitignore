@@ -11,3 +11,4 @@
 
 # Logs
 crash.log
+*.plan

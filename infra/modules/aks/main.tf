@@ -83,3 +83,28 @@ resource "azurerm_role_assignment" "admins" {
   role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
   principal_id         = each.value
 }
+
+# Managed Gateway API CRDs and the app routing Istio implementation
+# (approuting-istio GatewayClass). Not yet configurable in azurerm,
+# so the settings are patched onto the cluster through the AKS API.
+resource "azapi_update_resource" "gateway_api" {
+  type        = "Microsoft.ContainerService/managedClusters@2026-03-02-preview"
+  resource_id = azurerm_kubernetes_cluster.this.id
+
+  body = {
+    properties = {
+      ingressProfile = {
+        gatewayAPI = {
+          installation = "Standard"
+        }
+        webAppRouting = {
+          gatewayAPIImplementations = {
+            appRoutingIstio = {
+              mode = "Enabled"
+            }
+          }
+        }
+      }
+    }
+  }
+}
